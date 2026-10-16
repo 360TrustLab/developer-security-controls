@@ -35,5 +35,5 @@ jobs:
         run: |
           args=()
           if [ "$FIXED" = "true" ]; then args+=(--fixed); fi
-          if [ "${{ github.event_name }}" = "pull_request" ]; then args+=(--source app/service.py); fi
+          if [ "$FIXED" != "true" ]; then args+=(--source app/service.py); fi
           python lab.py --mode "$MODE" "${args[@]}" --enforce
