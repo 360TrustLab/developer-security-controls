@@ -1,0 +1,26 @@
+[
+  {
+    "id": "DEMO-DEP-001",
+    "kind": "dependency",
+    "file": "fixtures/proposed_app.py",
+    "line": 3,
+    "severity": "high",
+    "confidence": "high",
+    "reachable": true,
+    "owner": "application-team",
+    "remediation": "Upgrade the fictional parser or add an upload boundary while testing the breaking change.",
+    "source": "Synthetic dependency advisory for teaching; not a CVE or a real package."
+  },
+  {
+    "id": "DEMO-SAST-001",
+    "kind": "static-analysis",
+    "file": "fixtures/proposed_app.py",
+    "line": 6,
+    "severity": "medium",
+    "confidence": "low",
+    "reachable": false,
+    "owner": "application-team",
+    "remediation": "Check whether debug logging can expose sensitive values in the deployed configuration.",
+    "source": "Synthetic heuristic finding; not a third-party scanner result."
+  }
+]

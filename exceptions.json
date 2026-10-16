@@ -1,0 +1,11 @@
+{
+  "exceptions": [
+    {
+      "finding_id": "DEMO-DEP-001",
+      "owner": "application-team",
+      "approved_by": "demo-risk-owner",
+      "reason": "Synthetic parser upgrade needs regression testing; upload boundary is the teaching compensating control.",
+      "expires": "2026-11-21"
+    }
+  ]
+}

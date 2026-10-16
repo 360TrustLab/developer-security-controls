@@ -1,0 +1,39 @@
+name: Synthetic PR security feedback
+on:
+  pull_request:
+    paths:
+      - 'fixtures/**'
+      - 'app/**'
+      - 'exceptions.json'
+      - 'lab.py'
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [before, after]
+        default: after
+      fixed:
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  policy-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Explain findings at the file and line
+        env:
+          MODE: ${{ inputs.mode || 'after' }}
+          FIXED: ${{ inputs.fixed || false }}
+        run: |
+          args=()
+          if [ "$FIXED" = "true" ]; then args+=(--fixed); fi
+          if [ "${{ github.event_name }}" = "pull_request" ]; then args+=(--source app/service.py); fi
+          python lab.py --mode "$MODE" "${args[@]}" --enforce
