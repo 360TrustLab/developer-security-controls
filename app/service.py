@@ -5,3 +5,6 @@ PARSER_VERSION = "0.9-demo"
 def parse_upload(text):
     return text.split(",")
 DEBUG_LOGGING = True
+
+def health():
+    return {"status": "ready"}
