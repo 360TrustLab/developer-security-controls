@@ -61,3 +61,26 @@ See [SOURCES.md](SOURCES.md) for source documentation and model limits.
 Run `python3 viewer.py --port 8765`, then open http://127.0.0.1:8765.
 The browser shows actual local lab output with its scope clearly labeled.
 It is not an AWS Console or GitHub screenshot. Stop with Ctrl+C.
+
+## Replay the published draft PR
+
+The live PR is https://github.com/360TrustLab/developer-security-controls/pull/1.
+It remains a draft. Its main branch is clean. The broken branch keeps a small
+health endpoint change alongside the synthetic marker so the repaired PR still
+has a meaningful application change to review.
+
+From a fresh authenticated clone, repair the PR without merging it:
+
+```sh
+git fetch origin
+git switch demo/broken-gate
+git restore --source origin/demo/repaired-gate -- app/service.py
+git add app/service.py
+git commit -m "Demo: use a runtime secret reference"
+git push origin HEAD
+```
+
+To restage the conference's intentionally failing starting state, restore the
+same file from `origin/demo/reset-fixture`, commit and push. Do not force-push or
+merge the draft PR. The local workspace Git snapshots were prepared independently
+of the published Git history; use a fresh clone for this remote replay.

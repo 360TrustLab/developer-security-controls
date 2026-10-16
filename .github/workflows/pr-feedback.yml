@@ -19,7 +19,7 @@ permissions:
   contents: read
 jobs:
   policy-check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
@@ -35,5 +35,5 @@ jobs:
         run: |
           args=()
           if [ "$FIXED" = "true" ]; then args+=(--fixed); fi
-          if [ "${{ github.event_name }}" = "pull_request" ]; then args+=(--source app/service.py); fi
+          if [ "$FIXED" != "true" ]; then args+=(--source app/service.py); fi
           python lab.py --mode "$MODE" "${args[@]}" --enforce
