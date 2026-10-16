@@ -84,3 +84,14 @@ To restage the conference's intentionally failing starting state, restore the
 same file from `origin/demo/reset-fixture`, commit and push. Do not force-push or
 merge the draft PR. The local workspace Git snapshots were prepared independently
 of the published Git history; use a fresh clone for this remote replay.
+
+## Captured GitHub evidence
+
+The deck includes actual GitHub Actions captures of the synthetic policy check:
+
+- [Blocked PR run](https://github.com/360TrustLab/developer-security-controls/actions/runs/38846331939): one blocking marker, one warning, one tracked exception.
+- [Repaired PR run](https://github.com/360TrustLab/developer-security-controls/actions/runs/38846811959): no blocking findings, warning and tracked exception retained.
+
+Images are in `docs/screenshots/crh06-github-{failing,passing}-detail.jpg`.
+These are real workflow executions over synthetic teaching inputs. The PR was
+restored to its broken fixture after recording the successful repair.
