@@ -1,5 +1,13 @@
 # CRH06: Security Controls Developers Won't Fight
 
+I want a developer to understand the next action and meet the security
+requirement without an avoidable search for context or an owner. This lab
+compares policy decisions while keeping the blocking marker and remaining-risk
+ownership visible.
+
+See [Operating decisions](OPERATING_DECISIONS.md) for the enforcement, rollout,
+and measurement decisions around the check.
+
 A runnable PR feedback exercise with a real file-pattern check and **synthetic**
 dependency/static-analysis findings. There is no live credential, real vulnerable
 package, CVE claim, or third-party security scanner.

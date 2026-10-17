@@ -5,7 +5,7 @@ from pathlib import Path
 from urllib.parse import urlparse,parse_qs
 import lab
 ROOT=Path(__file__).parent
-VIEWS={'before': 'A troublesome Pull Request', 'after': 'Prioritize findings without hiding the secret', 'fixed': 'Remove the secret marker and rerun'}
+VIEWS={'before': 'A troublesome Pull Request', 'after': 'Which findings should block this change?', 'fixed': 'Marker removed. Remaining risk stays owned.'}
 
 def report(view):
     return lab.evaluate('before' if view == 'before' else 'after', view == 'fixed')
