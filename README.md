@@ -4,7 +4,7 @@ A runnable PR feedback exercise with a real file-pattern check and **synthetic**
 dependency/static-analysis findings. There is no live credential, real vulnerable
 package, CVE claim, or third-party security scanner.
 
-## Demo 1: experience the broken gate
+## Demo 1: A troublesome Pull Request
 
 ```sh
 python3 -m unittest discover -s tests -v
@@ -89,8 +89,8 @@ of the published Git history; use a fresh clone for this remote replay.
 
 The deck includes actual GitHub Actions captures of the synthetic policy check:
 
-- [Blocked PR run](https://github.com/360TrustLab/developer-security-controls/actions/runs/38846331939): one blocking marker, one warning, one tracked exception.
-- [Repaired PR run](https://github.com/360TrustLab/developer-security-controls/actions/runs/38846811959): no blocking findings, warning and tracked exception retained.
+- [Blocked PR run](https://github.com/360TrustLab/developer-security-controls/actions/runs/38846331939): one blocking marker, one warning, and one tracked exception.
+- [Repaired PR run](https://github.com/360TrustLab/developer-security-controls/actions/runs/38846811959): no blocking findings, warning, and tracked exception retained.
 
 Images are in `docs/screenshots/crh06-github-{failing,passing}-detail.jpg`.
 These are real workflow executions over synthetic teaching inputs. The PR was

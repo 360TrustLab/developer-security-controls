@@ -5,7 +5,7 @@ from pathlib import Path
 from urllib.parse import urlparse,parse_qs
 import lab
 ROOT=Path(__file__).parent
-VIEWS={'before': 'A noisy gate blocks every finding', 'after': 'Prioritize findings without hiding the secret', 'fixed': 'Remove the secret marker and rerun'}
+VIEWS={'before': 'A troublesome Pull Request', 'after': 'Prioritize findings without hiding the secret', 'fixed': 'Remove the secret marker and rerun'}
 
 def report(view):
     return lab.evaluate('before' if view == 'before' else 'after', view == 'fixed')
@@ -24,7 +24,7 @@ def page(view):
             detail=('Broad subject before hardening: '+r['before']['subject']) if view=='before' else ('Exact subject after hardening: '+r['after']['subject'])
             content+='<h2>Workflow '+('before' if view=='before' else 'after')+' hardening</h2><p><code>'+esc(r[stage]['workflow_permissions'])+'</code></p><p>'+esc(r[stage]['action_reference'])+'</p>'
         else:
-            detail='Action/Resource subset model only. Synthetic ARNs. No JWT authentication, AWS SDK requests or CloudTrail events.'
+            detail='Action/Resource subset model only. Synthetic ARNs. No JWT authentication, AWS SDK requests, or CloudTrail events.'
             content+='<h2>Workload identity</h2><p>Secret references in configuration · no static access keys · no secret values displayed</p>'
     links=''.join('<a '+('aria-current="page" ' if k==view else '')+'href="/?view='+k+'">'+esc(v)+'</a>' for k,v in VIEWS.items())
     doc='''<!doctype html><html><head><meta charset="utf-8"><title>360TrustLab local demo</title><style>
