@@ -12,6 +12,25 @@ A runnable PR feedback exercise with a real file-pattern check and **synthetic**
 dependency/static-analysis findings. There is no live credential, real vulnerable
 package, CVE claim, or third-party security scanner.
 
+## Reading the two blocked captures
+
+The local and GitHub captures intentionally show different policy stages:
+
+| Capture | Policy and source state | Result before exception expiry |
+| --- | --- | --- |
+| Local baseline | `--mode before`, broken fixture | 3 blocks |
+| GitHub blocked PR | `after` policy, marker still present | 1 block, 1 warning, and 1 tracked exception |
+| Local or GitHub repair | `after` policy, marker removed | 0 blocks, 1 warning, and 1 tracked exception |
+
+The GitHub PR workflow defaults to `after`. The change in counts between the
+first two captures comes from the policy decision, not from repairing the
+marker. The final repair removes that marker. These findings are synthetic;
+the dated exception remains subject to its documented expiry.
+
+Every numerical cohort comparison in the talk is invented teaching data.
+Neither this lab nor its GitHub runs measures repair-time or escape-rate
+improvements. Use the example to discuss measurement, not to claim outcomes.
+
 ## Demo 1: A troublesome Pull Request
 
 ```sh
@@ -30,8 +49,10 @@ python3 lab.py --mode after --enforce
 python3 lab.py --mode after --fixed --enforce
 ```
 
-The first remains red: the literal marker still needs removal. The second passes
-while retaining one warning and one owned, approved, expiring dependency exception.
+The first remains red: the literal marker still needs removal. Through November
+21, 2026, the second passes while retaining one warning and one owned, approved,
+expiring dependency exception. Starting November 22, the expired exception
+makes the dependency finding block again, and the second command exits 1.
 The repaired file resolves a secret ARN reference instead of storing a literal.
 No report prints the marker itself. A real exposed credential would need rotation.
 
@@ -40,7 +61,7 @@ validated on every run. To rehearse later, explicitly create a new approved expi
 do not disable expiry checking. Use `--date 2026-11-19` only for an openly labeled
 historical replay, never as a way to bypass a real policy decision.
 
-## Stage the pull request
+## Optional GitHub exercise: stage the pull request
 
 The prepared `demo/broken-gate` branch introduces the nonfunctional marker into
 `app/service.py`. Open a draft PR from that branch. The PR workflow scans that
@@ -70,7 +91,17 @@ Run `python3 viewer.py --port 8765`, then open http://127.0.0.1:8765.
 The browser shows actual local lab output with its scope clearly labeled.
 It is not an AWS Console or GitHub screenshot. Stop with Ctrl+C.
 
-## Replay the published draft PR
+## Optional public draft PR walkthrough
+
+The repository, draft PR, and captured workflow runs are public to view.
+Attendees can run the local fixture commands above without a GitHub login.
+For an interactive GitHub exercise, fork the repository, review and enable its
+workflows, and stage a PR in your own fork. A GitHub account is needed to make
+changes or run workflows.
+
+The commands below are presenter repair/reset instructions for collaborators
+with write access to 360TrustLab. Public read access does not grant that
+permission. The ZIP does not include remote demo branches or Git history.
 
 The live PR is https://github.com/360TrustLab/developer-security-controls/pull/1.
 It remains a draft. Its main branch is clean. The broken branch keeps a small
