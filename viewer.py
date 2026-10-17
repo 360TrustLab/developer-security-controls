@@ -14,7 +14,7 @@ def page(view):
     r=report(view);esc=lambda s:html.escape(str(s));stage='before' if view=='before' else 'after'
     title=VIEWS[view]
     if 'findings' in r:
-        rows=''.join('<tr><td><strong>'+esc(f['id'])+'</strong><small>'+esc(f['file'])+':'+str(f['line'])+'</small></td><td><b class="'+f['outcome'].lower()+'">'+f['outcome']+'</b></td><td>'+esc(f['remediation'])+'<small>Owner: '+esc(f['owner'])+(' · exception expires '+esc(f['exception']['expires']) if f['exception'] else '')+'</small></td></tr>' for f in r['findings'])
+        rows=''.join('<tr><td><strong>'+esc(f['id'])+'</strong><small><code>'+esc(f['file'])+':'+str(f['line'])+'</code></small></td><td><b class="'+f['outcome'].lower()+'">'+f['outcome']+'</b></td><td>'+esc(f['remediation'])+'<small>Owner: '+esc(f['owner'])+(' · exception expires '+esc(f['exception']['expires']) if f['exception'] else '')+'</small></td></tr>' for f in r['findings'])
         content='<div class="summary">'+esc(r['status'])+' · '+esc(r['counts']['BLOCK'])+' block · '+esc(r['counts']['WARN'])+' warn · '+esc(r['counts']['TRACK'])+' track</div><table><thead><tr><th>Finding / location</th><th>Decision</th><th>Fix and ownership</th></tr></thead><tbody>'+rows+'</tbody></table>'
         detail='The check reads fixture files. Dependency and analysis findings are synthetic; the credential marker cannot authenticate.'
     else:
